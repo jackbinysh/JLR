@@ -6,6 +6,7 @@ filename = 'smallnetwork_adj'; % Insert the txt file's name
 
 % IN ADJACENCY MATRIX FORMAT
 cd ..
+tmppwd = pwd;
 file = fullfile(cd, ['\InputData\' sprintf(filename) '.txt']);
 data = load(file);
 cd ([pwd '\MatlabScripts'])
@@ -33,7 +34,11 @@ edje_list = adj2edgeL(data);
 %%
 % Extract the edge list into pajek format in order
 % to be handled by the COMBO algorithm
+
 edgeL2pajek(edje_list, sprintf([filename '.net']));
+movefile(sprintf([filename '.net']),[tmppwd '\ComboCode'])
+
+break
 
 %% Running the C++ executable
 flag = 'run';
