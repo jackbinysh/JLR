@@ -2,8 +2,9 @@ clear
 clc
 close all
 
-    
-filename = input('Insert the name of the file without the file type e.g. example ','s'); % Insert the txt file's name
+% Insert the name of the file e.g. smallnetwork_adj   
+filename = input('Insert the name of the file without the file type (e.g. example) : ','s'); % Insert the txt file's name
+
 
 % IN ADJACENCY MATRIX FORMAT
 cd ..
@@ -113,15 +114,33 @@ xlswrite([filename '.csv'],col_header,'Sheet1','A1');     %Write column header
 
 cd ..
 cd ([pwd '\MatlabScripts'])
-%% Unscramble the adjacency matrix (Jacks way)
-% get the permutation vector
-[~,PVector] = sort(comm);
-% get the permutation matrix from this vector
-PMatrix = PermutationMatrix(PVector);
-% apply it to our initial adjacency matrix to unscramble it
-outputdata = PMatrix*data*PMatrix';
 
-%TODO write piece of code which orders the nodes ascendingly within a community
+
+%% Unscramble the adjacency matrix containing the original data
+
+% A test to verify that the following method works even with 
+% weighted directed matrices can be performed as follows:
+% 
+% A = [0 2 1 0 0 0; 0 0 1 0 0 0; 0 3 0 1 0 0; 0 0 0 0 1 1; 0 0 0 2 0 2; 0 0 0 0 0 0 ];
+% % Seed for the shuffling 
+% v = [4 6 5 2 1 3];
+% % Creating a permutation matrix acording to v
+% P = PermutationMatrix(v);
+% % Shuffling the data in with the permutation matrix
+% K = P*A*P';
+% % Obtaing the correct order (Unshuffling) using the Sparse reverse Cuthill-McKee ordering 
+% k = symrcm(K);
+% sorted_data = K(k,:);
+% sorted_data = sorted_data(:,k)
+
+% Obtaing the correct order (unshuffling) using the Sparse reverse Cuthill-McKee ordering 
+order = symrcm(data);
+sorted_data = K(k,:);
+sorted_data = sorted_data(:,k);
+
+
+
+
 
 
 
