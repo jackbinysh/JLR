@@ -2,14 +2,24 @@ clear
 clc
 close all
 
-% Insert the name of the file e.g. smallnetwork_adj   
+%%
+
+if ispc
+    fileseperator = '\';
+elseif isunix
+    fileseperator = '/';
+end
+
+%%
+
+% Insert the name of the file e.g. smallnetwork_adj
 %filename = input('Insert the name of the file without the file type (e.g. example) : ','s'); % Insert the txt file's name
 
 uiwait(msgbox('Browse to your file'));
 
 [FileName,PathName] = uigetfile('*.txt','Select the input file of .txt format');
 [filename tmp] = strread(FileName, '%s %s', 'delimiter','.');
-filename = char(filename); 
+filename = char(filename);
 
 % IN ADJACENCY MATRIX FORMAT
 
@@ -17,8 +27,9 @@ tmppwd = pwd;
 file = fullfile([PathName sprintf(FileName)]);
 data = load(file);
 
-% Transform it to andat edje list
+% Transform it to an edje list
 edje_list = adj2edgeL(data);
+
 
 %% ***********************************************
 % IF IN EDJE LIST FORMAT
@@ -42,7 +53,7 @@ edje_list = adj2edgeL(data);
 % to be handled by the COMBO algorithm
 
 edgeL2pajek(edje_list, sprintf([filename '.net']));
-movefile(sprintf([filename '.net']),[fileparts(pwd) '\ComboCode'])
+movefile(sprintf([filename '.net']),[fileparts(pwd) fileseperator 'ComboCode'])
 
 %% Running the C++ executable
 flag = 'run';
@@ -52,11 +63,11 @@ while flag == 'run'
     
     disp('The modularity is');
     
-    modularity = runCpp(filename,communities);
+    modularity = runCpp(filename,communities,fileseperator);
     
     % Insert the output of the Combo algorithm
     
-    file = fullfile([fileparts(pwd) '\ComboCode\' sprintf(filename) '_comm_comboC++.txt']);
+    file = fullfile([fileparts(pwd) fileseperator 'ComboCode' fileseperator sprintf(filename) '_comm_comboC++.txt']);
     comm = load(file);
     
     
@@ -70,11 +81,11 @@ while flag == 'run'
     
     %%%%%%% TO DO in btter way
     if communities == 0
-    maxcomm = length(unique(comm));
+        maxcomm = length(unique(comm));
     end
     
     if length(unique(comm)) > maxcomm
-        maxcomm = length(unique(comm)) 
+        maxcomm = length(unique(comm))
     end
     %%%%%%%%%%
     
@@ -101,58 +112,54 @@ end
 %% Output to xls file with headers
 
 
-mkdir( [fileparts(pwd)], '\Output_for_Gephi')
+mkdir( [fileparts(pwd)], [fileseperator 'Output_for_Gephi'])
 
-if exist([ fileparts(pwd) '\Output_for_Gephi' filename '.csv']) ~= 0
+if exist([ fileparts(pwd) fileseperator 'Output_for_Gephi' filename '.csv']) ~= 0
     %     temp_n = exist([filename '.csv']);
     %     filename_temp = [filename num2str(temp_n)];
     % else
     %     filename_temp = [filename];
     
-    delete([fileparts(pwd) '\Output_for_Gephi' filename '.csv']);
+    delete([fileparts(pwd) fileseperator 'Output_for_Gephi' filename '.csv']);
 end
 
 col_header = {'ID','Label','Node_type'};
-xlswrite([[fileparts(pwd) '\Output_for_Gephi\'] filename '.csv'],new_node_list,'Sheet1','A2');     %Write data
-xlswrite([[fileparts(pwd) '\Output_for_Gephi\'] filename '.csv'],col_header,'Sheet1','A1');     %Write column header
+xlswrite([[fileparts(pwd) fileseperator 'Output_for_Gephi' fileseperator] filename '.csv'],new_node_list,'Sheet1','A2');     %Write data
+xlswrite([[fileparts(pwd) fileseperator 'Output_for_Gephi' fileseperator] filename '.csv'],col_header,'Sheet1','A1');     %Write column header
 
 
 
 
 %% Unscramble the adjacency matrix containing the original data
 
-% A test to verify that the following method works even with 
+% A test to verify that the following method works even with
 % weighted directed matrices can be performed as follows:
-% 
+%
 % A = [0 2 1 0 0 0; 0 0 1 0 0 0; 0 3 0 1 0 0; 0 0 0 0 1 1; 0 0 0 2 0 2; 0 0 0 0 0 0 ];
-% % Seed for the shuffling 
+% % Seed for the shuffling
 % v = [4 6 5 2 1 3];
 % % Creating a permutation matrix acording to v
 % P = PermutationMatrix(v);
 % % Shuffling the data in with the permutation matrix
 % K = P*A*P';
-% % Obtaing the correct order (Unshuffling) using the Sparse reverse Cuthill-McKee ordering 
+% % Obtaing the correct order (Unshuffling) using the Sparse reverse Cuthill-McKee ordering
 % k = symrcm(K);
 % sorted_data = K(k,:);
 % sorted_data = sorted_data(:,k)
 
-% Obtaing the correct order (unshuffling) using the Sparse reverse Cuthill-McKee ordering 
+% Obtaing the correct order (unshuffling) using the Sparse reverse Cuthill-McKee ordering
 
 
 order = symrcm(data);
 sorted_data = data(order,:);
 sorted_data = sorted_data(:,order);
 
-mkdir( [fileparts(pwd)], '\Sorted_Adj_Output')
-if exist([ fileparts(pwd) '\Sorted_Adj_Output' filename '_sorted_matrix.txt']) ~= 0   
-    delete([fileparts(pwd) '\Sorted_Adj_Output' filename '_sorted_matrix.txt']);
+mkdir( [fileparts(pwd)], [fileseperator 'Sorted_Adj_Output'])
+if exist([ fileparts(pwd) fileseperator 'Sorted_Adj_Output' fileseperator filename '_sorted_matrix.txt']) ~= 0
+    delete([fileparts(pwd) fileseperator 'Sorted_Adj_Output' fileseperator filename '_sorted_matrix.txt']);
 end
 
-dlmwrite([fileparts(pwd) '\Sorted_Adj_Output' filename '_sorted_matrix.txt'],sorted_data)
-
-
-
-
+dlmwrite([fileparts(pwd) fileseperator 'Sorted_Adj_Output' fileseperator filename '_sorted_matrix.txt'],sorted_data)
 
 
 
