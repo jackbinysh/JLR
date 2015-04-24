@@ -8,14 +8,15 @@ if communities == 0
         modularity = system([fileparts(pwd) fileseperator 'ComboCode' ' ' './comboCPP' ' ' filename '.net']);
     end
     
-else
 
+else
+    
     if ispc
         modularity = system([fileparts(pwd) fileseperator 'ComboCode' fileseperator '"COMBO.exe"' ' ' filename '.net' ' ' num2str(communities)]);
     elseif isunix
         modularity = system([fileparts(pwd) fileseperator 'ComboCode' ' '  './comboCPP' ' ' filename '.net' ' ' num2str(communities)]);
     end
-   
+    
 end
 
 end
