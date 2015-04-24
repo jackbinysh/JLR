@@ -2,7 +2,8 @@ clear
 clc
 close all
 
-filename = 'smallnetwork_adj'; % Insert the txt file's name
+    
+filename = input('Insert the name of the file without the file type e.g. example ','s'); % Insert the txt file's name
 
 % IN ADJACENCY MATRIX FORMAT
 cd ..
@@ -37,8 +38,6 @@ edje_list = adj2edgeL(data);
 
 edgeL2pajek(edje_list, sprintf([filename '.net']));
 movefile(sprintf([filename '.net']),[tmppwd '\ComboCode'])
-
-break
 
 %% Running the C++ executable
 flag = 'run';
