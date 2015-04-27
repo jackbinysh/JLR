@@ -1,6 +1,7 @@
-clear
-clc
+clear all
 close all
+clc
+
 
 %%
 
@@ -56,7 +57,7 @@ while flag == 'run'
     
     modularity = runCpp(filename,communities);
 	
-	file = ([fileparts(pwd) filesep 'ComboCode' filesep 'modularity.txt']);
+	file = ([pwd filesep 'modularity.txt']);
     modularity = load(file);
 	
     disp(['The modularity is ' num2str(modularity)]);
