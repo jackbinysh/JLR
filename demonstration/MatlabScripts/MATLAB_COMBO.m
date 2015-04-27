@@ -4,13 +4,6 @@ close all
 
 %%
 
-if ispc
-    fileseperator = '\';
-elseif isunix
-    fileseperator = '/';
-end
-
-%%
 
 % Insert the name of the file e.g. smallnetwork_adj
 %filename = input('Insert the name of the file without the file type (e.g. example) : ','s'); % Insert the txt file's name
@@ -53,7 +46,7 @@ edje_list = adj2edgeL(data);
 % to be handled by the COMBO algorithm
 
 edgeL2pajek(edje_list, sprintf([filename '.net']));
-movefile(sprintf([filename '.net']),[fileparts(pwd) fileseperator 'ComboCode'])
+movefile(sprintf([filename '.net']),[fileparts(pwd) filesep 'ComboCode'])
 
 %% Running the C++ executable
 flag = 'run';
@@ -61,16 +54,25 @@ communities = 0;
 
 while flag == 'run'
     
-    disp('The modularity is');
-    
-    modularity = runCpp(filename,communities,fileseperator);
-    
+    modularity = runCpp(filename,communities);
+	
+	file = ([fileparts(pwd) filesep 'ComboCode' filesep 'modularity.txt']);
+    modularity = load(file);
+	
+    disp(['The modularity is ' num2str(modularity)]);
+	
+	
     % Insert the output of the Combo algorithm
     
-    file = fullfile([fileparts(pwd) fileseperator 'ComboCode' fileseperator sprintf(filename) '_comm_comboC++.txt']);
+    file = fullfile([fileparts(pwd) filesep 'ComboCode' filesep sprintf(filename) '_comm_comboC++.txt']);
     comm = load(file);
     
-    
+    close all
+	PlotGraph(data,comm+1);
+	hold on
+	title(['Combo algorithm, Q \approx' num2str(modularity)],'FontSize',20,'FontWeight','bold');
+    hold off
+	
     disp(' ')
     disp(['The Combo algorithm has detected ' num2str(length(unique(comm))) ' communities'] )
     disp(' ')
@@ -112,20 +114,20 @@ end
 %% Output to xls file with headers
 
 
-mkdir( [fileparts(pwd)], [fileseperator 'Output_for_Gephi'])
+mkdir( [fileparts(pwd)], [filesep 'Output_for_Gephi'])
 
-if exist([ fileparts(pwd) fileseperator 'Output_for_Gephi' filename '.csv']) ~= 0
+if exist([ fileparts(pwd) filesep 'Output_for_Gephi' filename '.csv']) ~= 0
     %     temp_n = exist([filename '.csv']);
     %     filename_temp = [filename num2str(temp_n)];
     % else
     %     filename_temp = [filename];
     
-    delete([fileparts(pwd) fileseperator 'Output_for_Gephi' filename '.csv']);
+    delete([fileparts(pwd) filesep 'Output_for_Gephi' filename '.csv']);
 end
 
 col_header = {'ID','Label','Node_type'};
-xlswrite([[fileparts(pwd) fileseperator 'Output_for_Gephi' fileseperator] filename '.csv'],new_node_list,'Sheet1','A2');     %Write data
-xlswrite([[fileparts(pwd) fileseperator 'Output_for_Gephi' fileseperator] filename '.csv'],col_header,'Sheet1','A1');     %Write column header
+xlswrite([[fileparts(pwd) filesep 'Output_for_Gephi' filesep] filename '.csv'],new_node_list,'Sheet1','A2');     %Write data
+xlswrite([[fileparts(pwd) filesep 'Output_for_Gephi' filesep] filename '.csv'],col_header,'Sheet1','A1');     %Write column header
 
 
 
@@ -154,12 +156,12 @@ order = symrcm(data);
 sorted_data = data(order,:);
 sorted_data = sorted_data(:,order);
 
-mkdir( [fileparts(pwd)], [fileseperator 'Sorted_Adj_Output'])
-if exist([ fileparts(pwd) fileseperator 'Sorted_Adj_Output' fileseperator filename '_sorted_matrix.txt']) ~= 0
-    delete([fileparts(pwd) fileseperator 'Sorted_Adj_Output' fileseperator filename '_sorted_matrix.txt']);
+mkdir( [fileparts(pwd)], [filesep 'Sorted_Adj_Output'])
+if exist([ fileparts(pwd) filesep 'Sorted_Adj_Output' filesep filename '_sorted_matrix.txt']) ~= 0
+    delete([fileparts(pwd) filesep 'Sorted_Adj_Output' filesep filename '_sorted_matrix.txt']);
 end
 
-dlmwrite([fileparts(pwd) fileseperator 'Sorted_Adj_Output' fileseperator filename '_sorted_matrix.txt'],sorted_data)
+dlmwrite([fileparts(pwd) filesep 'Sorted_Adj_Output' filesep filename '_sorted_matrix.txt'],sorted_data)
 
 
 

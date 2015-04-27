@@ -1,21 +1,29 @@
-function [modularity] = runCpp(filename,communities,fileseperator)
+function [modularity] = runCpp(filename,communities)
 
 if communities == 0
     
-    if ispc
-        modularity = system([fileparts(pwd) fileseperator 'ComboCode' fileseperator '"COMBO.exe"' ' ' filename '.net']);
-    elseif isunix
-        modularity = system([fileparts(pwd) fileseperator 'ComboCode' ' ' './comboCPP' ' ' filename '.net']);
-    end
     
-
+    cd ..
+    cd ([pwd '\ComboCode'])
+    if ispc
+        modularity = system([fileparts(pwd) filesep 'ComboCode' filesep '"COMBO.exe"' ' ' filename '.net > modularity.txt']);
+    elseif isunix
+        modularity = system([fileparts(pwd) filesep 'ComboCode' ' ' './comboCPP' ' ' filename '.net > modularity.txt']);
+    end
+    cd ..
+    cd ([pwd '\MatlabScripts'])
+    
+    
 else
-    
+    cd ..
+    cd ([pwd '\ComboCode'])
     if ispc
-        modularity = system([fileparts(pwd) fileseperator 'ComboCode' fileseperator '"COMBO.exe"' ' ' filename '.net' ' ' num2str(communities)]);
+        modularity = system([fileparts(pwd) filesep 'ComboCode' filesep '"COMBO.exe"' ' ' filename '.net' ' ' num2str(communities) ' > modularity.txt']);
     elseif isunix
-        modularity = system([fileparts(pwd) fileseperator 'ComboCode' ' '  './comboCPP' ' ' filename '.net' ' ' num2str(communities)]);
+        modularity = system([fileparts(pwd) filesep 'ComboCode' ' '  './comboCPP' ' ' filename '.net' ' ' num2str(communities) ' > modularity.txt' ]);
     end
+    cd ..
+    cd ([pwd '\MatlabScripts'])
     
 end
 
