@@ -5,8 +5,12 @@ class AnnealedMatrix
 public:
 	AnnealedMatrix(std::vector<std::vector<int>> xInputMatrix);
 
+	int getEnergy() const {return m_iEnergy;}
+	void setEnergy(int iEnergy) {m_iEnergy = iEnergy;}
+
+	void Swap(int iRowOne,int iRowTwo); // swap rows One and Two
 	int ComputeProposedEnergy(int iRowOne, int iRowTwo) const;
-	void Update(int iRowOne,int iRowTwo, int iProposedEnergy); // swap rows One and Two, and set the energy to the proposed energy
+
 private:
 
 	int ComputeEnergy() const;

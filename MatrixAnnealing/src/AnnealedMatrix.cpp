@@ -4,7 +4,7 @@
  *  Created on: 28 May 2015
  *      Author: jackbinysh
  */
-
+#include <cmath>
 #include "AnnealedMatrix.h"
 
 AnnealedMatrix::AnnealedMatrix(std::vector<std::vector<int>> xInputMatrix)
@@ -14,10 +14,8 @@ AnnealedMatrix::AnnealedMatrix(std::vector<std::vector<int>> xInputMatrix)
 	m_iSize = xInputMatrix.size();
 }
 
-void AnnealedMatrix::Update(int iRowOne,int iRowTwo, int iProposedEnergy)
+void AnnealedMatrix::Swap(int iRowOne,int iRowTwo)
 {
-	m_iEnergy = iProposedEnergy;
-
 	// swap rows
 	for(int j = 0; j<= m_iSize-1;j++)
 	{
@@ -36,7 +34,38 @@ void AnnealedMatrix::Update(int iRowOne,int iRowTwo, int iProposedEnergy)
 
 int AnnealedMatrix::ComputeEnergy() const
 {
-	return 0;
+	int iEnergy(0);
+	for(int i=0; i<= m_iSize-1; i++)
+	{
+		int iRowEnergy(0);
+		for (int j=0; j<=m_iSize-1 ; j++)
+		{
+			if(m_xMatrix[i][j])
+			{
+				iRowEnergy += std::abs(i-j); //almost certainly wrong
+			}
+		}
+		iEnergy +=iRowEnergy;
+	}
+	return iEnergy/2;
 }
 
+int AnnealedMatrix::ComputeProposedEnergy(int iRowOne, int iRowTwo) const
+{
+	int iNodeOneEnergy(0),iNodeTwoEnergy(0), iNodeTwoatNodeoneEnergy(0), iNodeOneatNodeTwoEnergy(0);
+	for (int j=0; j<=m_iSize-1 ; j++)
+	{
+		if(m_xMatrix[iRowOne][j] && j !=iRowTwo)
+		{
+			iNodeOneEnergy += std::abs(iRowOne-j);
+			iNodeTwoatNodeoneEnergy += std::abs(iRowTwo-j);
+		}
+		if(m_xMatrix[iRowTwo][j] && j !=iRowOne)
+		{
+			iNodeTwoEnergy += std::abs(iRowTwo-j);
+			iNodeOneatNodeTwoEnergy += std::abs(iRowOne-j);
+		}
+	}
+	return ( m_iEnergy - iNodeOneEnergy - iNodeTwoEnergy + iNodeTwoatNodeoneEnergy + iNodeOneatNodeTwoEnergy ) ;
+}
 
