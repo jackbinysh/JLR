@@ -10,8 +10,8 @@
 AnnealedMatrix::AnnealedMatrix(std::vector<std::vector<int>> xInputMatrix)
 {
 	m_xMatrix = xInputMatrix;
-	m_iEnergy = ComputeEnergy();
 	m_iSize = xInputMatrix.size();
+	m_iEnergy = ComputeEnergy();
 }
 
 void AnnealedMatrix::Swap(int iRowOne,int iRowTwo)
