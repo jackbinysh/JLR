@@ -13,7 +13,7 @@
 function [com, Q, comty] = louvain(adj)
     
     % Run Louvain method
-    comty = cluster_jl_orientT_cpp(adj,0,0,0,1);
+    comty = cluster_jl_orient_cpp(adj,0,0,0,1);
 
     % Return the partition with highest Q
     [Q, idx] = max(comty.MOD);

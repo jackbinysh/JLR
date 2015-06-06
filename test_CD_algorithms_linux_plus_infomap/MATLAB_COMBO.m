@@ -4,9 +4,6 @@ tic;
 
 format LONGE
 
-iter = 0;
-h = waitbar(0,'Please wait...');
-
 for choice = 1:3
     
     close all
@@ -18,15 +15,15 @@ for choice = 1:3
     NumNodes = 1000;
     AvgK = 20;
     MaxK = 50;
-    MuW = 0.6;
+    MuW = 0.5;
     t1 = 2;
     t2 = 1;
-    minc = 20;
+    minc = 10;
     maxc = 50;
     
-    MuT = 0:0.1:1;
+    MuT = 0:0.1:0.1;
     
-    runs = 5;
+    runs = 1;
     
     vcombo = zeros(length(MuT),runs);
     vlouvain = zeros(length(MuT),runs);
@@ -104,7 +101,7 @@ for choice = 1:3
     
     plot(MuT,mean(vlouvain,2),'-*g')
     
-    plot(MuT,mean(vInfomap,2),'-*g')
+    plot(MuT,mean(vInfomap,2),'-*c')
     
     legend('Combo' , 'Louvain', 'Infomap');
     
@@ -135,7 +132,5 @@ for choice = 1:3
     end
     
 end % end choice
-
-% close(h)
 
 time_elapsed = toc

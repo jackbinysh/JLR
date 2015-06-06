@@ -13,7 +13,7 @@ function [com] = infomap(adj)
 
     % Set the path and command line name
     dir_path = pwd;
-    command = ' ./Infomap_code';
+    command = ' ./Infomap_code ';
 
     command = [dir_path,command];
     command = [command,' ',num2str(randi(99999999)),' adj.net',' 1'];
