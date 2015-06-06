@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="godhelpus" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="Debug">
+				<Option output="bin/Debug/godhelpus" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Debug/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+				</Compiler>
+			</Target>
+			<Target title="Release">
+				<Option output="bin/Release/godhelpus" prefix_auto="1" extension_auto="1" />
+				<Option object_output="obj/Release/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-O2" />
+				</Compiler>
+				<Linker>
+					<Add option="-s" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="../Infomap/examples/cpp/Infomap-igraph-interface-library/src/Infomap-igraph-interface.cpp" />
+		<Unit filename="../Infomap/examples/cpp/Infomap-igraph-interface-library/src/Infomap-igraph-interface.h" />
+		<Unit filename="../Infomap/examples/cpp/igraph/example-igraph.cpp" />
+		<Unit filename="../Infomap/examples/cpp/minimal/example.cpp" />
+		<Unit filename="../Infomap/examples/cpp/minimal/mem-example.cpp" />
+		<Unit filename="../Infomap/examples/cpp/minimal/multi-example.cpp" />
+		<Unit filename="../Infomap/src/Infomap.cpp" />
+		<Unit filename="../Infomap/src/Infomap.h" />
+		<Unit filename="../Infomap/src/Informatter.cpp" />
+		<Unit filename="../Infomap/src/infomap/Edge.h" />
+		<Unit filename="../Infomap/src/infomap/FlowNetwork.cpp" />
+		<Unit filename="../Infomap/src/infomap/FlowNetwork.h" />
+		<Unit filename="../Infomap/src/infomap/InfomapBase.cpp" />
+		<Unit filename="../Infomap/src/infomap/InfomapBase.h" />
+		<Unit filename="../Infomap/src/infomap/InfomapContext.cpp" />
+		<Unit filename="../Infomap/src/infomap/InfomapContext.h" />
+		<Unit filename="../Infomap/src/infomap/InfomapGreedy.h" />
+		<Unit filename="../Infomap/src/infomap/InfomapGreedyCommon.h" />
+		<Unit filename="../Infomap/src/infomap/InfomapGreedySpecialized.h" />
+		<Unit filename="../Infomap/src/infomap/InfomapGreedyTypeSpecialized.h" />
+		<Unit filename="../Infomap/src/infomap/MemFlowNetwork.cpp" />
+		<Unit filename="../Infomap/src/infomap/MemFlowNetwork.h" />
+		<Unit filename="../Infomap/src/infomap/MemNetwork.cpp" />
+		<Unit filename="../Infomap/src/infomap/MemNetwork.h" />
+		<Unit filename="../Infomap/src/infomap/MultiplexNetwork.cpp" />
+		<Unit filename="../Infomap/src/infomap/MultiplexNetwork.h" />
+		<Unit filename="../Infomap/src/infomap/Network.cpp" />
+		<Unit filename="../Infomap/src/infomap/Network.h" />
+		<Unit filename="../Infomap/src/infomap/NetworkAdapter.cpp" />
+		<Unit filename="../Infomap/src/infomap/NetworkAdapter.h" />
+		<Unit filename="../Infomap/src/infomap/Node.cpp" />
+		<Unit filename="../Infomap/src/infomap/Node.h" />
+		<Unit filename="../Infomap/src/infomap/NodeFactory.h" />
+		<Unit filename="../Infomap/src/infomap/TreeData.cpp" />
+		<Unit filename="../Infomap/src/infomap/TreeData.h" />
+		<Unit filename="../Infomap/src/infomap/flowData.h" />
+		<Unit filename="../Infomap/src/infomap/flowData_traits.h" />
+		<Unit filename="../Infomap/src/infomap/treeIterators.h" />
+		<Unit filename="../Infomap/src/io/ClusterReader.cpp" />
+		<Unit filename="../Infomap/src/io/ClusterReader.h" />
+		<Unit filename="../Infomap/src/io/Config.h" />
+		<Unit filename="../Infomap/src/io/HierarchicalNetwork.cpp" />
+		<Unit filename="../Infomap/src/io/HierarchicalNetwork.h" />
+		<Unit filename="../Infomap/src/io/ProgramInterface.cpp" />
+		<Unit filename="../Infomap/src/io/ProgramInterface.h" />
+		<Unit filename="../Infomap/src/io/SafeFile.h" />
+		<Unit filename="../Infomap/src/io/TreeDataWriter.cpp" />
+		<Unit filename="../Infomap/src/io/TreeDataWriter.h" />
+		<Unit filename="../Infomap/src/io/convert.h" />
+		<Unit filename="../Infomap/src/io/version.cpp" />
+		<Unit filename="../Infomap/src/io/version.h" />
+		<Unit filename="../Infomap/src/utils/Date.h" />
+		<Unit filename="../Infomap/src/utils/FileURI.cpp" />
+		<Unit filename="../Infomap/src/utils/FileURI.h" />
+		<Unit filename="../Infomap/src/utils/Logger.cpp" />
+		<Unit filename="../Infomap/src/utils/Logger.h" />
+		<Unit filename="../Infomap/src/utils/MersenneTwister.h" />
+		<Unit filename="../Infomap/src/utils/Stopwatch.h" />
+		<Unit filename="../Infomap/src/utils/gap_iterator.h" />
+		<Unit filename="../Infomap/src/utils/infomath.h" />
+		<Unit filename="../Infomap/src/utils/types.h" />
+		<Extensions>
+			<code_completion />
+			<envvars />
+			<debugger />
+			<lib_finder disable_auto="1" />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
