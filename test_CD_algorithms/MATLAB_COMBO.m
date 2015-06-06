@@ -47,17 +47,17 @@ for choice = 1:3
             
             
             switch choice
-                case 1
+                case 1 % undirected & unweighted
                     EdgeList(:,3) = 1;
                     AdjMatrix = edgeL2adj(EdgeList);
-                case 2
+                case 2 % undirected & weighted
                     edge_indexes = EdgeList(:, 1:2);
                     n_edges = max(edge_indexes(:));
                     AdjMatrix = zeros(n_edges);
                     for local_edge = EdgeList' %transpose in order to iterate by edge
                         AdjMatrix(local_edge(1), local_edge(2)) = local_edge(3);
                     end
-                case 3
+                case 3 % directed & weighted
                     edge_indexes = EdgeList(:, 1:2);
                     n_edges = max(edge_indexes(:));
                     AdjMatrix = zeros(n_edges);
