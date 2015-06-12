@@ -22,7 +22,7 @@ for i = 1:length(MuT)
         delete('statistics.dat');
         delete('community.dat');
     end
-    i
+    i %see the point the iteration is at
     EdgeList = GenerateData(NumNodes, AvgK, MaxK , MuT(i), MuW, minc, maxc, t1, t2); %, MuW, t1, t2
     EdgeList(:,3) = 1;
     AdjMatrix = edgeL2adj(EdgeList); %convert edge list to an adjacency matrix
