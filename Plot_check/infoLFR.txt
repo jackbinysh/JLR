@@ -1,0 +1,33 @@
+setting... -N 1000
+setting... -k 20
+setting... -maxk 50
+setting... -mu 1
+setting... -minc 10
+setting... -maxc 50
+setting... -t1 2
+setting... -t2 1
+
+**************************************************************
+number of nodes:	1000
+average degree:	20
+maximum degree:	50
+exponent for the degree distribution:	2
+exponent for the community size distribution:	1
+mixing parameter:	1
+number of overlapping nodes:	0
+number of memberships of the overlapping nodes:	0
+community size range set equal to [10 , 50]
+**************************************************************
+
+building communities... 
+connecting communities... 
+recording network...
+
+
+---------------------------------------------------------------------------
+network of 1000 vertices and 9813 edges;	 average degree = 19.626
+
+average mixing parameter: 1 +/- 0
+p_in: 0	p_out: 0.0199358
+
+
